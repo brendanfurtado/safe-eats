@@ -23,7 +23,7 @@
             >
 
             <v-card-text class="text--primary">
-              <div>{{ restaurant.location }}</div>
+              <div>{{ restaurant.location.city }}</div>
 
               <div>{{ restaurant.location.address1 }}</div>
             </v-card-text>
