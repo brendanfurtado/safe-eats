@@ -3,7 +3,6 @@
     <v-main>
       <NavBar></NavBar>
       <router-view />
-      <TheFooter></TheFooter>
     </v-main>
   </v-app>
 </template>
@@ -11,10 +10,42 @@
 <script>
 // import TheFooter from "@/components/TheFooter";
 import NavBar from "@/components/NavBar";
-import TheFooter from "@/components/TheFooter";
+import { mapActions } from "vuex";
 
 export default {
-  components: { NavBar, TheFooter },
+  components: { NavBar },
+  name: "App",
+  data() {
+    return {
+      location: null,
+      gettingLocation: false,
+      errorStr: "",
+    };
+  },
+  methods: {
+    ...mapActions(["updateLocationState"]),
+  },
+  //Check user location
+  beforeMount() {
+    if (!("geolocation" in navigator)) {
+      this.errorStr = "Geolocation is not available.";
+      return;
+    }
+    this.gettingLocation = true;
+    //get position
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.gettingLocation = false;
+        this.location = position;
+        //Update vuex module
+        this.updateLocationState({ position });
+      },
+      (err) => {
+        this.gettingLocation = false;
+        this.errorStr = err.message;
+      }
+    );
+  },
 };
 </script>
 

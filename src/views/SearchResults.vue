@@ -7,17 +7,33 @@
         class="restaurantList"
       >
         <v-card v-for="restaurant in this.restaurants" :key="restaurant.id">
-          <p>{{ restaurant.name }}</p>
-          <p>{{ restaurant.location.address1 }}</p>
-          <v-img
-            position="center"
-            contain
-            :src="restaurant.image_url"
-            :aspect-ratio="16 / 9"
-          >
-          </v-img>
+          <v-card class="mx-auto" max-width="600">
+            <v-img
+              class="white--text align-end"
+              height="300px"
+              :src="restaurant.image_url"
+            >
+              <v-card-title class="font-weight-black">{{
+                restaurant.name
+              }}</v-card-title>
+            </v-img>
 
-          <a :href="restaurant.url">{{ restaurant.url }}</a>
+            <v-card-subtitle class="pb-0"
+              >Rating: {{ restaurant.rating }} stars</v-card-subtitle
+            >
+
+            <v-card-text class="text--primary">
+              <div>{{ restaurant.location }}</div>
+
+              <div>{{ restaurant.location.address1 }}</div>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-btn color="blue" text>
+                <a :href="restaurant.url">Explore</a>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
         </v-card>
       </div>
     </div>
@@ -58,7 +74,6 @@ export default {
 
     redirect() {
       this.$router.push({ name: "Home" });
-      //   this.$router.push("/");
     },
   },
 };

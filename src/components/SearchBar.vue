@@ -39,7 +39,6 @@ export default {
 
   data() {
     return {
-      rules: [(value) => !!value || "Required."],
       formData: {
         restaurantName: null,
         restaurantLocation: null,
@@ -56,7 +55,6 @@ export default {
       //Convert into object
       var parsedobj = JSON.parse(JSON.stringify(this.formData));
       var location = this.getLocation.position;
-
       if (
         parsedobj.restaurantLocation === null ||
         parsedobj.restaurantLocation === ""
