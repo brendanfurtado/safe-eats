@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>Post a Review Here!</h1>
+    <h1>Here is where current data & reviews for a restaurant!</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Posts",
+  name: "ViewPosts",
 };
 </script>
 

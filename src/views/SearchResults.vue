@@ -29,9 +29,20 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn color="blue" text>
+              <v-btn color="primary" x-large text>
                 <a :href="restaurant.url">Explore</a>
               </v-btn>
+              <v-spacer></v-spacer>
+              <router-link
+                v-bind:to="{
+                  path: `/write/review/${restaurant.id}`,
+                  params: { restaurant_id: restaurant.id },
+                }"
+              >
+                <v-btn color="primary" x-large text
+                  >Write a Safety Review</v-btn
+                >
+              </router-link>
             </v-card-actions>
           </v-card>
         </v-card>
@@ -85,5 +96,8 @@ div {
 }
 p {
   font-size: 25px;
+}
+a {
+  text-decoration: none;
 }
 </style>

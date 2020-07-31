@@ -70,7 +70,10 @@ export default {
       await this.fetchRestaurants(parsedobj);
 
       //Search routes depending on search bar inputs and route
-      if (this.$router.currentRoute.name === "Home") {
+      if (
+        this.$router.currentRoute.name === "Home" ||
+        this.$router.currentRoute.name === "CreatePosts"
+      ) {
         if (parsedobj.restaurantName === null) {
           this.$router.push({
             name: "SearchResults",
@@ -89,7 +92,6 @@ export default {
         }
       } else {
         //Means the user is in SearchResults view page already
-        console.log(parsedobj);
         this.$emit("termChange", event.target.value);
       }
     },

@@ -6,10 +6,10 @@
     </p>
     <SearchBar></SearchBar>
 
-    <div v-if="this.reviews.length">
-      <h2>Featured Reviews</h2>
+    <div v-if="getReviews">
+      <h2>Featured Safe Eats Restaurants</h2>
       <v-card
-        v-for="review in this.reviews"
+        v-for="review in this.postedReviews"
         :key="review.id"
         class="mx-auto"
         max-width="600"
@@ -18,6 +18,15 @@
           {{ review.restaurant_name }}
         </v-card-title>
         <p>{{ review.post }}</p>
+        <div>
+          <router-link
+            v-bind:to="{ name: 'view-posts', params: { post_id: review.id } }"
+          >
+            <v-btn class="ma-2" outlined color="grey"
+              >View Restaurant & Reviews
+            </v-btn>
+          </router-link>
+        </div>
       </v-card>
     </div>
     <TheFooter></TheFooter>
@@ -28,8 +37,8 @@
 // @ is an alias to /src
 import SearchBar from "@/components/SearchBar.vue";
 import TheFooter from "@/components/TheFooter.vue";
+import { mapGetters, mapActions } from "vuex";
 
-import database from "../firebase/firebaseInit";
 export default {
   name: "Home",
   components: {
@@ -38,27 +47,19 @@ export default {
   },
   data() {
     return {
-      reviews: [],
+      postedReviews: [],
     };
   },
+
+  computed: mapGetters(["getReviews"]),
+
+  methods: {
+    ...mapActions(["fetchReviews"]),
+  },
+  //Fetch reviews from the veux store which call firestore database
   created() {
-    database
-      .collection("reviews")
-      .orderBy("rating")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          const data = {
-            id: doc.id, //firebase id
-            restaurant_id: doc.data().restaurant_id,
-            restaurant_name: doc.data().restaurant_name,
-            location: doc.data().location,
-            rating: doc.data().rating,
-            post: doc.data().post,
-          };
-          this.reviews.push(data);
-        });
-      });
+    this.fetchReviews();
+    this.postedReviews = this.getReviews;
   },
 };
 </script>
@@ -66,5 +67,8 @@ export default {
 <style scoped>
 div {
   margin-top: 50px;
+}
+a {
+  text-decoration: none;
 }
 </style>

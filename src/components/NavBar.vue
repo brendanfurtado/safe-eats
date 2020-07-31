@@ -9,7 +9,9 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-title>
-        <v-btn text @click="$router.push('/post')">Post a Review</v-btn>
+        <v-btn text @click="$router.push('/create/posts')"
+          >Write a Safety Review</v-btn
+        >
         <v-spacer></v-spacer>
       </v-toolbar-title>
 

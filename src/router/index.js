@@ -2,7 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import SearchResults from "../views/SearchResults.vue";
-import Posts from "../views/Posts.vue";
+import CreatePosts from "../views/CreatePosts.vue";
+import ViewPosts from "../views/ViewPosts.vue";
+import WriteReview from "../views/WriteReview.vue";
 
 Vue.use(VueRouter);
 
@@ -22,9 +24,19 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
-    path: "/post",
-    name: "Posts",
-    component: Posts,
+    path: "/create/posts",
+    name: "CreatePosts",
+    component: CreatePosts,
+  },
+  {
+    path: "/:post_id",
+    name: "view-posts",
+    component: ViewPosts,
+  },
+  {
+    path: "/write/review/:restaurant_id",
+    name: "write-review",
+    component: WriteReview,
   },
   {
     //Router for search results for now
