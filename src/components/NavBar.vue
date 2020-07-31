@@ -9,6 +9,11 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-title>
+        <v-btn text @click="$router.push('/post')">Post a Review</v-btn>
+        <v-spacer></v-spacer>
+      </v-toolbar-title>
+
+      <v-toolbar-title>
         <v-btn text @click="$router.push('/about')">About</v-btn>
         <v-spacer></v-spacer>
       </v-toolbar-title>
