@@ -24,9 +24,13 @@ export default {
   },
   methods: {
     ...mapActions(["updateLocationState"]),
+
+    // actionsReload() {
+    //   // sessionStorage.clear();
+    // },
   },
   //Check user location
-  beforeMount() {
+  beforeCreate() {
     if (!("geolocation" in navigator)) {
       this.errorStr = "Geolocation is not available.";
       return;
@@ -45,6 +49,12 @@ export default {
         this.errorStr = err.message;
       }
     );
+  },
+  // created() {
+  //   window.addEventListener("unload", this.actionsReload);
+  // },
+  destroyed() {
+    sessionStorage.clear();
   },
 };
 </script>

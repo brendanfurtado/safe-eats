@@ -36,6 +36,7 @@ const routes = [
   {
     path: "/write/review/:restaurant_id",
     name: "write-review",
+    props: true,
     component: WriteReview,
   },
   {

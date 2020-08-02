@@ -55,12 +55,19 @@ export default {
 
   methods: {
     ...mapActions(["fetchReviews"]),
+    //When a page refresh occurs clear the vuex storage
   },
+  beforeCreate() {
+    sessionStorage.clear();
+    this.postedReviews = [];
+  },
+
   //Fetch reviews from the veux store which call firestore database
   created() {
     this.fetchReviews();
     this.postedReviews = this.getReviews;
   },
+  destroyed() {},
 };
 </script>
 
