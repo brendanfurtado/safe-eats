@@ -29,8 +29,13 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn color="primary" x-large text>
-                <a :href="restaurant.url">Explore</a>
+              <v-btn
+                @click="openYelp(restaurant.url)"
+                color="primary"
+                x-large
+                text
+              >
+                Yelp Page
               </v-btn>
               <v-spacer></v-spacer>
               <router-link
@@ -81,6 +86,10 @@ export default {
   methods: {
     async onTermChange() {
       this.restaurants = await this.getRestaurants;
+    },
+
+    openYelp(searchUrl) {
+      window.open(searchUrl);
     },
 
     redirect() {

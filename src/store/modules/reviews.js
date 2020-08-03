@@ -16,7 +16,6 @@ const getters = {
 
 const actions = {
   fetchReviews({ commit }) {
-    state.reviews = []; //Reinitialze review buffer
     commit("setReviews", database);
   },
 };
