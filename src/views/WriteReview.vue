@@ -8,21 +8,24 @@
         <h3>{{ restaurantData.restaurantLocation }}</h3>
       </v-container>
       <v-container>
-        <v-form>
+        <v-form @submit.prevent="submission">
+          <h4>Rating (required)</h4>
           <v-rating
             @input="addRating($event, rating)"
             required
+            :rules="starRules"
             v-model="rating"
-            :empty-icon="emptyIcon"
-            :full-icon="fullIcon"
-            :half-icon="halfIcon"
-            :half-increments="halfIncrements"
+            half-increments
             :hover="hover"
             :readonly="readonly"
           ></v-rating>
           <v-row justify="center">
             <v-col cols="10" md="5" sm="5">
               <v-textarea
+                @input="addPost"
+                v-model="post"
+                clearable
+                required
                 counter
                 :rules="rules"
                 filled
@@ -35,6 +38,16 @@
             </v-col>
           </v-row>
         </v-form>
+
+        <v-btn
+          class="ma-2"
+          color="primary"
+          :loading="loading"
+          :disabled="!isFormComplete"
+          @click="loader = 'loading'"
+          type="submit"
+          >Submit Review</v-btn
+        >
       </v-container>
     </div>
     <div v-else>
@@ -52,13 +65,12 @@ export default {
   props: ["restaurant_id", "restaurant"],
   data() {
     return {
-      emptyIcon: "mdi-heart-outline",
-      fullIcon: "mdi-heart",
-      halfIcon: "mdi-heart-half-full",
-      halfIncrements: true,
       readonly: false,
-      rating: 0,
+      rating: null,
       post: null,
+
+      loader: null,
+      loading: false,
 
       hover: true,
       rules: [
@@ -66,7 +78,11 @@ export default {
         (value) =>
           (value || "").length <= 2000 ||
           "Review must be 2000 characters or less",
+        (value) =>
+          (value || "").length >= 15 || "Review must be 15 characters or more",
       ],
+      starRules: [(rating) => !!rating || "Required."],
+
       restaurantID: null,
       restaurantData: {
         restaurantName: null,
@@ -82,9 +98,32 @@ export default {
     addRating(value) {
       this.rating = value;
     },
+    addPost(words) {
+      this.post = words;
+    },
   },
   computed: {
     ...mapGetters(["getRestaurants"]),
+    isFormComplete() {
+      return !this.isPostNull && this.rating !== null && this.post.length >= 15;
+    },
+    isPostNull() {
+      return this.post === null || this.post === "";
+    },
+  },
+
+  watch: {
+    loader() {
+      this.restaurantData.rating = this.rating;
+      this.restaurantData.reviewPost = this.post;
+
+      const l = this.loader;
+      this[l] = !this[l];
+
+      setTimeout(() => (this[l] = false), 5000);
+
+      this.loader = null;
+    },
   },
 
   //When the review page is created check storage to get information
@@ -119,5 +158,10 @@ export default {
 
 .centered-input input {
   text-align: center;
+}
+
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
 }
 </style>
