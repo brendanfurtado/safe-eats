@@ -43,4 +43,11 @@ export default {
         });
     }
   },
+  async getProfile(restaurantID) {
+    return axios
+      .get(`http://localhost:5000/view/${restaurantID}`)
+      .then((response) => {
+        return response;
+      });
+  },
 };

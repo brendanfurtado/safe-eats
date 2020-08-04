@@ -8,7 +8,7 @@
         <h3>{{ restaurantData.restaurantLocation }}</h3>
       </v-container>
       <v-container>
-        <v-form @submit.prevent="submission">
+        <v-form @submit.prevent="submitReview">
           <h4>Rating (required)</h4>
           <v-rating
             @input="addRating($event, rating)"
@@ -37,17 +37,14 @@
               ></v-textarea>
             </v-col>
           </v-row>
+          <v-btn
+            class="ma-2"
+            color="primary"
+            :disabled="!isFormComplete"
+            type="submit"
+            >Submit Review</v-btn
+          >
         </v-form>
-
-        <v-btn
-          class="ma-2"
-          color="primary"
-          :loading="loading"
-          :disabled="!isFormComplete"
-          @click="loader = 'loading'"
-          type="submit"
-          >Submit Review</v-btn
-        >
       </v-container>
     </div>
     <div v-else>
@@ -57,7 +54,7 @@
 </template>
 
 <script>
-// import database from "../firebase/firebaseInit";
+import database from "../firebase/firebaseInit";
 import { mapGetters } from "vuex";
 
 export default {
@@ -68,9 +65,6 @@ export default {
       readonly: false,
       rating: null,
       post: null,
-
-      loader: null,
-      loading: false,
 
       hover: true,
       rules: [
@@ -101,6 +95,21 @@ export default {
     addPost(words) {
       this.post = words;
     },
+
+    submitReview() {
+      console.log("submit button");
+      database
+        .collection("reviews")
+        .add({
+          restaurantName: this.restaurantData.restaurantName,
+          restaurantLocation: this.restaurantData.restaurantLocation,
+          restaurantID: this.restaurantID,
+          rating: this.rating,
+          reviewPost: this.post,
+        })
+        .then(() => this.$router.push("/"))
+        .catch((error) => console.log(error));
+    },
   },
   computed: {
     ...mapGetters(["getRestaurants"]),
@@ -109,20 +118,6 @@ export default {
     },
     isPostNull() {
       return this.post === null || this.post === "";
-    },
-  },
-
-  watch: {
-    loader() {
-      this.restaurantData.rating = this.rating;
-      this.restaurantData.reviewPost = this.post;
-
-      const l = this.loader;
-      this[l] = !this[l];
-
-      setTimeout(() => (this[l] = false), 5000);
-
-      this.loader = null;
     },
   },
 
@@ -158,10 +153,5 @@ export default {
 
 .centered-input input {
   text-align: center;
-}
-
-.custom-loader {
-  animation: loader 1s infinite;
-  display: flex;
 }
 </style>

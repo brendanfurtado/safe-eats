@@ -5,6 +5,7 @@ import createPersistedState from "vuex-persistedstate";
 import location from "./modules/location";
 import search from "./modules/search";
 import reviews from "./modules/reviews";
+import restaurantProfiles from "./modules/restaurantProfiles";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -17,5 +18,6 @@ export default new Vuex.Store({
     location,
     search,
     reviews,
+    restaurantProfiles,
   },
 });

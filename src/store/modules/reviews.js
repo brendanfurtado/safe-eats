@@ -2,10 +2,14 @@ import database from "../../firebase/firebaseInit";
 
 const state = {
   reviews: [],
+  restaurantProfile: [],
   shown: false,
 };
 
 const getters = {
+  getRestaurantProfile: (state) => {
+    return state.restaurantProfile;
+  },
   getReviews: (state) => {
     return state.reviews;
   },
@@ -17,6 +21,9 @@ const getters = {
 const actions = {
   fetchReviews({ commit }) {
     commit("setReviews", database);
+  },
+  fetchReviewsByID({ commit }, id) {
+    commit("setReviewsByID", database, id);
   },
 };
 
@@ -31,17 +38,23 @@ const mutations = {
           querySnapshot.forEach((doc) => {
             const data = {
               id: doc.id, //firebase id
-              restaurant_id: doc.data().restaurant_id,
-              restaurant_name: doc.data().restaurant_name,
-              location: doc.data().location,
+              restaurantID: doc.data().restaurantID,
+              restaurantName: doc.data().restaurantName,
+              restaurantLocation: doc.data().restaurantLocation,
               rating: doc.data().rating,
-              post: doc.data().post,
+              reviewPost: doc.data().reviewPost,
             };
             state.reviews.push(data);
           });
           state.shown = true;
         });
     }
+  },
+
+  setReviewsByID: (state, db, id) => {
+    db.collection("reviews")
+      .orderBy(id)
+      .get();
   },
 };
 

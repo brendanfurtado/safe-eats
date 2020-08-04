@@ -15,12 +15,15 @@
         max-width="600"
       >
         <v-card-title class="font-weight-black">
-          {{ review.restaurant_name }}
+          {{ review.restaurantName }}
         </v-card-title>
-        <p>{{ review.post }}</p>
+        <p>{{ review.reviewPost }}</p>
         <div>
           <router-link
-            v-bind:to="{ name: 'view-posts', params: { post_id: review.id } }"
+            v-bind:to="{
+              path: `/restaurants/view/${review.restaurantID}`,
+              params: { restaurantID: review.restaurantID },
+            }"
           >
             <v-btn class="ma-2" outlined color="grey"
               >View Restaurant & Reviews
@@ -56,6 +59,9 @@ export default {
   methods: {
     ...mapActions(["fetchReviews"]),
     //When a page refresh occurs clear the vuex storage
+    handler() {
+      sessionStorage.clear();
+    },
   },
   beforeCreate() {
     sessionStorage.clear();
@@ -64,6 +70,7 @@ export default {
 
   //Fetch reviews from the veux store which call firestore database
   created() {
+    window.addEventListener("beforeunload", this.handler);
     this.fetchReviews();
     this.postedReviews = this.getReviews;
   },

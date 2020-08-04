@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import SearchResults from "../views/SearchResults.vue";
 import CreatePosts from "../views/CreatePosts.vue";
-import ViewPosts from "../views/ViewPosts.vue";
+import ViewRestaurantProfile from "../views/ViewRestaurantProfile.vue";
 import WriteReview from "../views/WriteReview.vue";
 
 Vue.use(VueRouter);
@@ -29,9 +29,10 @@ const routes = [
     component: CreatePosts,
   },
   {
-    path: "/:post_id",
-    name: "view-posts",
-    component: ViewPosts,
+    path: "/restaurants/view/:restaurantID",
+    name: "ViewRestaurantProfile",
+    props: true,
+    component: ViewRestaurantProfile,
   },
   {
     path: "/write/review/:restaurant_id",
