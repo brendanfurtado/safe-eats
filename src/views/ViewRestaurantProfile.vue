@@ -1,6 +1,12 @@
 <template>
   <div>
-    <h1>Here is where current data & reviews for a restaurant!</h1>
+    <div v-if="this.profileData">
+      <h1>{{ profileData.name }}</h1>
+      <h2>{{ profileData.location.address1 }}</h2>
+    </div>
+    <div v-else>
+      Loading...
+    </div>
   </div>
 </template>
 
@@ -20,13 +26,17 @@ export default {
   data() {
     return {
       id: null,
-      profileData: null,
+      profileData: [],
     };
+  },
+  beforeCreate() {
+    this.profileData = [];
   },
   async created() {
     this.id = this.restaurantID;
     await this.fetchProfile(this.id);
     this.profileData = this.getProfile;
+    console.log(this.profileData);
   },
 
   // beforeRouteEnter(to, from, next) {

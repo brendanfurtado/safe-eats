@@ -18,6 +18,19 @@
               }}</v-card-title>
             </v-img>
 
+            <v-card-actions>
+              <router-link
+                v-bind:to="{
+                  path: `/restaurants/view/${restaurant.id}`,
+                  params: { restaurantID: restaurant.id },
+                }"
+              >
+                <v-btn class="ma-2" outlined color="grey"
+                  >View Details & Reviews
+                </v-btn>
+              </router-link>
+            </v-card-actions>
+
             <v-card-subtitle class="pb-0"
               >Rating: {{ restaurant.rating }} stars</v-card-subtitle
             >

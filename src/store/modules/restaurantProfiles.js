@@ -1,11 +1,13 @@
 import api from "../../api/yelp";
 
 const state = {
-  profile: {},
+  profile: [],
 };
 
 const getters = {
-  getProfile: (state) => state.profile,
+  getProfile: (state) => {
+    return state.profile;
+  },
 };
 
 const actions = {
