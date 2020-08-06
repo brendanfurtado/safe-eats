@@ -8,7 +8,6 @@
 </template>
 
 <script>
-// import TheFooter from "@/components/TheFooter";
 import NavBar from "@/components/NavBar";
 import { mapActions } from "vuex";
 
@@ -24,10 +23,6 @@ export default {
   },
   methods: {
     ...mapActions(["updateLocationState"]),
-
-    // handler() {
-    //   sessionStorage.clear();
-    // },
   },
   //Check user location
   beforeCreate() {
@@ -50,12 +45,6 @@ export default {
       }
     );
   },
-  // created() {
-  //   window.addEventListener("beforeunload", this.handler);
-  // },
-  // destroyed() {
-  //   sessionStorage.clear();
-  // },
 };
 </script>
 

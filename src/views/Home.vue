@@ -37,7 +37,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import SearchBar from "@/components/SearchBar.vue";
 import TheFooter from "@/components/TheFooter.vue";
 import { mapGetters, mapActions } from "vuex";
@@ -58,7 +57,6 @@ export default {
 
   methods: {
     ...mapActions(["fetchReviews"]),
-    //When a page refresh occurs clear the vuex storage
   },
   beforeCreate() {
     sessionStorage.clear();
@@ -68,7 +66,7 @@ export default {
   //Fetch reviews from the veux store which call firestore database
   created() {
     this.fetchReviews();
-    this.postedReviews = this.getReviews;
+    this.postedReviews = this.getReviews; //Coming from modules/reviews
   },
   destroyed() {},
 };

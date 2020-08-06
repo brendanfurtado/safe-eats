@@ -2,7 +2,6 @@
   <div class="Searchbar">
     <v-container>
       <v-form @submit.prevent="onInput" class="container">
-        <!-- <v-container> -->
         <v-row>
           <v-col class="pa-2" outlined tile>
             <v-text-field
@@ -24,7 +23,6 @@
           </v-col>
         </v-row>
 
-        <!-- </v-container> -->
         <v-btn type="submit" class="btn">Submit</v-btn>
       </v-form>
     </v-container>

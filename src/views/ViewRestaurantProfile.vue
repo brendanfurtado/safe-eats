@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="loading" class="loading">
+    <div v-if="loading && loadingReviews" class="loading">
       Loading...
     </div>
     <div v-else>
@@ -8,32 +8,28 @@
         <h1>{{ profileData.name }}</h1>
         <h2>{{ profileData.location.address1 }}</h2>
       </div>
-      <div v-if="loadingReviews">
-        Loading reviews...
+
+      <div v-if="this.reviews.length >= 1">
+        <div v-for="review in this.reviews" :key="review.id">
+          <h1>{{ review.reviewPost }}</h1>
+          <h2>{{ review.rating }}</h2>
+        </div>
       </div>
       <div v-else>
-        <div v-if="this.reviews.length >= 1">
-          <div v-for="review in this.reviews" :key="review.id">
-            <h1>{{ review.reviewPost }}</h1>
-            <h2>{{ review.rating }}</h2>
-          </div>
+        <div>
+          <h2>
+            No Safe Eats Reviews Yet! <br />
+            Be the first one:
+          </h2>
         </div>
-        <div v-else>
-          <div>
-            <h2>
-              No Safe Eats Reviews Yet! <br />
-              Be the first one:
-            </h2>
-          </div>
-          <router-link
-            v-bind:to="{
-              path: `/write/review/${this.restaurantID}`,
-              params: { restaurant_id: this.restaurantID },
-            }"
-          >
-            <v-btn color="primary" x-large text>Write a Safety Review</v-btn>
-          </router-link>
-        </div>
+        <router-link
+          v-bind:to="{
+            path: `/write/review/${this.restaurantID}`,
+            params: { restaurant_id: this.restaurantID },
+          }"
+        >
+          <v-btn color="primary" x-large text>Write a Safety Review</v-btn>
+        </router-link>
       </div>
     </div>
   </div>

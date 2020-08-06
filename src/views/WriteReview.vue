@@ -123,6 +123,7 @@ export default {
 
   //When the review page is created check storage to get information
   //on the restaurant the user is reviewing
+  //Alternative to try: call restaurantProfile module with the restaurant ID as a parameter
   async created() {
     this.restaurantID = this.restaurant_id;
     var restaurants = await this.getRestaurants;
