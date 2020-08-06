@@ -1,17 +1,19 @@
 import database from "../../firebase/firebaseInit";
-
+//TEMPORARY FILE PROBABLY DELETE LATER
 const state = {
   reviews: [],
-  restaurantProfile: [],
+  reviewsByID: [],
+  restaurantID: "",
   shown: false,
+  shownReviews: false,
 };
 
 const getters = {
-  getRestaurantProfile: (state) => {
-    return state.restaurantProfile;
-  },
   getReviews: (state) => {
     return state.reviews;
+  },
+  getReviewsByID: (state) => {
+    return state.reviewsByID;
   },
   isShown: (state) => {
     return state.shown;
@@ -22,8 +24,9 @@ const actions = {
   fetchReviews({ commit }) {
     commit("setReviews", database);
   },
-  fetchReviewsByID({ commit }, id) {
-    commit("setReviewsByID", database, id);
+  fetchReviewsByID({ commit }, restaurantID) {
+    state.restaurantID = restaurantID;
+    commit("setReviewsByID", { database, restaurantID });
   },
 };
 
@@ -51,10 +54,27 @@ const mutations = {
     }
   },
 
-  setReviewsByID: (state, db, id) => {
-    db.collection("reviews")
-      .orderBy(id)
-      .get();
+  setReviewsByID: (state, { database, restaurantID }) => {
+    localStorage.setItem("database", database);
+    localStorage.setItem("restaurantID", restaurantID);
+    if (state.shownReviews === false) {
+      database
+        .collection("reviews")
+        .where("restaurantID", "==", restaurantID)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            const data = {
+              id: doc.id, //firebase data id inside the store
+              reviewPost: doc.data().reviewPost,
+              rating: doc.data().rating,
+            };
+
+            state.reviewsByID.push(data);
+          });
+          state.shownReviews = true;
+        });
+    }
   },
 };
 

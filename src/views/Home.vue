@@ -59,9 +59,6 @@ export default {
   methods: {
     ...mapActions(["fetchReviews"]),
     //When a page refresh occurs clear the vuex storage
-    handler() {
-      sessionStorage.clear();
-    },
   },
   beforeCreate() {
     sessionStorage.clear();
@@ -70,7 +67,6 @@ export default {
 
   //Fetch reviews from the veux store which call firestore database
   created() {
-    window.addEventListener("beforeunload", this.handler);
     this.fetchReviews();
     this.postedReviews = this.getReviews;
   },

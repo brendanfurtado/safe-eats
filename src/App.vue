@@ -25,8 +25,8 @@ export default {
   methods: {
     ...mapActions(["updateLocationState"]),
 
-    // actionsReload() {
-    //   // sessionStorage.clear();
+    // handler() {
+    //   sessionStorage.clear();
     // },
   },
   //Check user location
@@ -51,11 +51,11 @@ export default {
     );
   },
   // created() {
-  //   window.addEventListener("unload", this.actionsReload);
+  //   window.addEventListener("beforeunload", this.handler);
   // },
-  destroyed() {
-    sessionStorage.clear();
-  },
+  // destroyed() {
+  //   sessionStorage.clear();
+  // },
 };
 </script>
 

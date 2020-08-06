@@ -13,6 +13,7 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    props: true,
   },
   {
     path: "/about",
@@ -44,6 +45,7 @@ const routes = [
     //Router for search results for now
     path: "/search/restaurants/results",
     alias: "/search/restaurants/",
+    props: true,
 
     name: "SearchResults",
     component: SearchResults,
