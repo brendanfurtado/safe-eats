@@ -63,20 +63,6 @@ export default {
     this.fetchData();
   },
 
-  // beforeRouteEnter(to, from, next) {
-  //   db.collection("reviews")
-  //     .where("restaurantID", "==", to.params.restaurantID)
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       querySnapshot.forEach((doc) => {
-  //         next((vm) => {
-  //           vm.id = doc.id;
-  //           vm.reviewPost = doc.data().reviewPost;
-  //           vm.rating = doc.data().rating;
-  //         });
-  //       });
-  //     });
-  // },
   watch: {
     $route: "fetchData",
   },
