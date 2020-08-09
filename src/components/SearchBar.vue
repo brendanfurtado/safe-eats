@@ -1,9 +1,9 @@
 <template>
   <div class="Searchbar">
-    <v-container>
+    <v-container class="grey lighten-5">
       <v-form @submit.prevent="onInput" class="container">
-        <v-row>
-          <v-col class="pa-2" outlined tile>
+        <v-row no-gutters class="row">
+          <v-col cols="6" md="4" class="pa-2" outlined tile>
             <v-text-field
               v-model="formData.restaurantName"
               solo
@@ -13,7 +13,7 @@
             ></v-text-field>
           </v-col>
 
-          <v-col class="pa-2" outlined tile>
+          <v-col cols="6" md="4" class="pa-2" outlined tile>
             <v-text-field
               v-model="formData.restaurantLocation"
               solo
@@ -21,9 +21,11 @@
               prepend-inner-icon="mdi-map-marker"
             ></v-text-field>
           </v-col>
-        </v-row>
 
-        <v-btn type="submit" class="btn">Submit</v-btn>
+          <v-btn outlined type="submit" class="btn">
+            <v-icon>fas fa-search</v-icon>
+          </v-btn>
+        </v-row>
       </v-form>
     </v-container>
   </div>
@@ -103,5 +105,14 @@ export default {
   text-align: center;
   margin: 20px;
   justify-content: center;
+} */
+.row {
+  justify-content: center;
+}
+.btn {
+  margin-top: 13px;
+}
+/* .container {
+  background-color: #f57170;
 } */
 </style>

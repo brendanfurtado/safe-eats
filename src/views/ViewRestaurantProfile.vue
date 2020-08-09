@@ -1,9 +1,31 @@
 <template>
   <div>
+    <SearchBar></SearchBar>
     <div v-if="loading && loadingReviews" class="loading">
       Loading...
     </div>
     <div v-else>
+      <div>
+        <v-carousel
+          cycle
+          height="400"
+          hide-delimiter-background
+          show-arrows-on-hover
+          touch
+        >
+          <v-carousel-item v-for="(photo, i) in profileData.photos" :key="i">
+            <v-row align="center" justify="center">
+              <v-img
+                class="white--text align-end"
+                height="auto"
+                max-width="500"
+                :src="profileData.photos[i]"
+              >
+              </v-img>
+            </v-row>
+          </v-carousel-item>
+        </v-carousel>
+      </div>
       <div>
         <h1>{{ profileData.name }}</h1>
         <h2>{{ profileData.location.address1 }}</h2>
@@ -38,12 +60,16 @@
 <script>
 import db from "../firebase/firebaseInit";
 import { mapGetters, mapActions } from "vuex";
+import SearchBar from "@/components/SearchBar.vue";
 
 export default {
   //This file will call the vuex store that gets a restaurant profile based on ID
   name: "ViewRestaurantProfile",
   props: ["restaurantID"],
   computed: mapGetters(["getProfile", "getReviewsByID"]),
+  components: {
+    SearchBar,
+  },
 
   data() {
     return {
@@ -88,6 +114,9 @@ export default {
         });
       this.loading = false;
       this.loadingReviews = false;
+
+      console.log(this.profileData);
+      console.log(this.reviews);
     },
     ...mapActions(["fetchProfile", "fetchReviewsByID"]),
   },
@@ -95,9 +124,9 @@ export default {
 </script>
 
 <style scoped>
-div {
+/* div {
   margin-top: 50px;
-}
+} */
 a {
   text-decoration: none;
 }

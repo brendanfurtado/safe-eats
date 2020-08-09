@@ -82,6 +82,9 @@ export default {
         restaurantName: null,
         restaurantLocation: null,
         restaurant_id: null,
+        restaurantCity: null,
+        restaurantCountry: null,
+        restaurantDisplayAddress: null,
         rating: null,
         reviewPost: null,
       },
@@ -103,6 +106,10 @@ export default {
         .add({
           restaurantName: this.restaurantData.restaurantName,
           restaurantLocation: this.restaurantData.restaurantLocation,
+          restaurantCity: this.restaurantData.restaurantCity,
+          restaurantCountry: this.restaurantData.restaurantCountry,
+          restaurantDisplayAddress: this.restaurantData
+            .restaurantDisplayAddress,
           restaurantID: this.restaurantID,
           rating: this.rating,
           reviewPost: this.post,
@@ -133,6 +140,11 @@ export default {
         this.restaurantData.restaurantName = restaurants[i].name;
         this.restaurantData.restaurantLocation =
           restaurants[i].location.address1;
+        this.restaurantData.restaurantCity = restaurants[i].location.city;
+        this.restaurantData.restaurantCountry = restaurants[i].location.country;
+        this.restaurantData.restaurantDisplayAddress =
+          restaurants[i].location.display_address;
+
         break;
       }
     }

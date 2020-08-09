@@ -36,4 +36,8 @@
 export default {};
 </script>
 
-<style scoped></style>
+<style scoped>
+#app > div > main > div > div.navbar > header {
+  background-color: #f5f5f5;
+}
+</style>

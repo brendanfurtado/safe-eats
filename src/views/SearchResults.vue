@@ -13,7 +13,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-card
               max-width="800"
-              :elevation="hover ? 12 : 2"
+              :elevation="hover ? 6 : 2"
               height="285"
               @click="viewProfile(restaurant.id, $event)"
             >
