@@ -1,6 +1,6 @@
 <template>
   <div class="Searchbar">
-    <v-container class="grey lighten-5">
+    <v-container>
       <v-form @submit.prevent="onInput" class="container">
         <v-row no-gutters class="row">
           <v-col cols="6" md="4" class="pa-2" outlined tile>
@@ -72,7 +72,8 @@ export default {
       //Search routes depending on search bar inputs and route
       if (
         this.$router.currentRoute.name === "Home" ||
-        this.$router.currentRoute.name === "CreatePosts"
+        this.$router.currentRoute.name === "CreatePosts" ||
+        this.$router.currentRoute.name === "ViewRestaurantProfile"
       ) {
         if (parsedobj.restaurantName === null) {
           this.$router.push({
