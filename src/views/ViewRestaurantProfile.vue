@@ -75,9 +75,11 @@ export default {
     return {
       loading: false,
       loadingReviews: false,
+
       id: null,
       reviewPost: null,
       rating: null,
+
       profileData: [],
       reviews: [],
     };
@@ -114,9 +116,6 @@ export default {
         });
       this.loading = false;
       this.loadingReviews = false;
-
-      console.log(this.profileData);
-      console.log(this.reviews);
     },
     ...mapActions(["fetchProfile", "fetchReviewsByID"]),
   },

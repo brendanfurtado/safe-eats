@@ -22,7 +22,7 @@
             ></v-text-field>
           </v-col>
 
-          <v-btn outlined type="submit" class="btn">
+          <v-btn elevation="2" outlined type="submit" class="btn">
             <v-icon>fas fa-search</v-icon>
           </v-btn>
         </v-row>
