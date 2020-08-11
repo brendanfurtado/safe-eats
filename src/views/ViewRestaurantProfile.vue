@@ -30,6 +30,8 @@
         <h2>{{ profileData.location.address1 }}</h2>
       </div>
 
+      <!--Start of displaying my data, data above mostly from yelp or outside sources -->
+
       <div v-if="this.reviews.length >= 1">
         <div v-for="review in this.reviews" :key="review.id">
           <v-card>
@@ -65,16 +67,16 @@
 
 <script>
 import db from "../firebase/firebaseInit";
+import firebase from "firebase";
 import { mapGetters, mapActions } from "vuex";
 import SearchBar from "@/components/SearchBar.vue";
-import firebase from "firebase";
 
 export default {
   //This file will call the vuex store that gets a restaurant profile based on ID
   name: "ViewRestaurantProfile",
   props: ["restaurantID"],
   computed: {
-    ...mapGetters(["getProfile", "getReviewsByID"]),
+    ...mapGetters(["getProfile"]),
   },
   components: {
     SearchBar,
@@ -105,7 +107,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["fetchProfile", "fetchReviewsByID"]),
+    ...mapActions(["fetchProfile"]),
 
     async fetchData() {
       //Get profile data
@@ -138,9 +140,10 @@ export default {
             querySnapshot.forEach((doc) => {
               //Delete
               doc.ref.delete();
-              this.$router.push("/");
             });
-          });
+          })
+          .catch((error) => console.log(error));
+        setTimeout(() => this.$router.push("/"), 1000);
       }
     },
   },

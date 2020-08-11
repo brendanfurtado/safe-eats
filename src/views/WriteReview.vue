@@ -100,7 +100,6 @@ export default {
     },
 
     submitReview() {
-      console.log("submit button");
       database
         .collection("reviews")
         .add({
