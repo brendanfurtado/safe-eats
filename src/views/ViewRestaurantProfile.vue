@@ -11,7 +11,6 @@
           height="400"
           hide-delimiter-background
           show-arrows-on-hover
-          touch
         >
           <v-carousel-item v-for="(photo, i) in profileData.photos" :key="i">
             <v-row align="center" justify="center">
@@ -33,8 +32,15 @@
 
       <div v-if="this.reviews.length >= 1">
         <div v-for="review in this.reviews" :key="review.id">
-          <h1>{{ review.reviewPost }}</h1>
-          <h2>{{ review.rating }}</h2>
+          <v-card>
+            <h1>{{ review.reviewPost }}</h1>
+            <h2>{{ review.rating }}</h2>
+
+            <v-btn @click="deleteReview(review.id)" color="error">
+              Delete Review
+            </v-btn>
+            <v-spacer></v-spacer>
+          </v-card>
         </div>
       </div>
       <div v-else>
@@ -61,12 +67,15 @@
 import db from "../firebase/firebaseInit";
 import { mapGetters, mapActions } from "vuex";
 import SearchBar from "@/components/SearchBar.vue";
+import firebase from "firebase";
 
 export default {
   //This file will call the vuex store that gets a restaurant profile based on ID
   name: "ViewRestaurantProfile",
   props: ["restaurantID"],
-  computed: mapGetters(["getProfile", "getReviewsByID"]),
+  computed: {
+    ...mapGetters(["getProfile", "getReviewsByID"]),
+  },
   components: {
     SearchBar,
   },
@@ -96,6 +105,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(["fetchProfile", "fetchReviewsByID"]),
+
     async fetchData() {
       //Get profile data
       await this.fetchProfile(this.restaurantID);
@@ -117,15 +128,26 @@ export default {
       this.loading = false;
       this.loadingReviews = false;
     },
-    ...mapActions(["fetchProfile", "fetchReviewsByID"]),
+
+    deleteReview(ID) {
+      if (confirm("Are you sure you want to delete the review?")) {
+        db.collection("reviews")
+          .where(firebase.firestore.FieldPath.documentId(), "==", ID)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              //Delete
+              doc.ref.delete();
+              this.$router.push("/");
+            });
+          });
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-/* div {
-  margin-top: 50px;
-} */
 a {
   text-decoration: none;
 }

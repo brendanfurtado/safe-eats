@@ -158,21 +158,12 @@ export default {
 </script>
 
 <style scoped>
-/* .button-wrapper {
-  background: #00e389;
-} */
-
 .rows {
   display: flex;
 
   flex-direction: row;
 }
-/* .description {
-  margin-top: -25px;
-} */
-/* div {
-  margin-top: 50px;
-} */
+
 p {
   font-size: 25px;
 }
