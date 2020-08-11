@@ -1,7 +1,6 @@
 import database from "../../firebase/firebaseInit";
 const state = {
   reviews: [],
-  emptyArray: [],
   restaurantID: "",
 };
 
