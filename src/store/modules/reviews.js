@@ -41,27 +41,9 @@ const mutations = {
           };
           state.reviews.push(data);
         });
+        state.reviews.reverse();
       });
   },
-  // setReviews: (state, db) => {
-  //   db.collection("reviews")
-  //     .orderBy("rating")
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       querySnapshot.forEach((doc) => {
-  //         const data = {
-  //           id: doc.id, //firebase id
-  //           restaurantID: doc.data().restaurantID,
-  //           restaurantName: doc.data().restaurantName,
-  //           restaurantLocation: doc.data().restaurantLocation,
-  //           rating: doc.data().rating,
-  //           reviewPost: doc.data().reviewPost,
-  //         };
-  //         state.reviews.push(data);
-  //       });
-  //       // state.shown = true;
-  //     });
-  // },
 };
 
 export default {
