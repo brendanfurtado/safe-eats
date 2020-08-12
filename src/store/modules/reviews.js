@@ -11,9 +11,6 @@ const getters = {
   getReviewsByID: (state) => {
     return state.reviewsByID;
   },
-  isShown: (state) => {
-    return state.shown;
-  },
 };
 
 const actions = {
