@@ -21,8 +21,8 @@
       </v-toolbar-title>
 
       <v-toolbar-title>
-        <v-btn text right>
-          <span>Sign In</span>
+        <v-btn text right @click="$router.push('/Login')">
+          <span>Login</span>
         </v-btn>
       </v-toolbar-title>
 

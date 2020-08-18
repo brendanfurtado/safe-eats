@@ -5,6 +5,7 @@ import SearchResults from "../views/SearchResults.vue";
 import CreatePosts from "../views/CreatePosts.vue";
 import ViewRestaurantProfile from "../views/ViewRestaurantProfile.vue";
 import WriteReview from "../views/WriteReview.vue";
+import Login from "../views/user/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -49,6 +50,12 @@ const routes = [
 
     name: "SearchResults",
     component: SearchResults,
+  },
+  {
+    path: "/login",
+    props: true,
+    name: "Login",
+    component: Login,
   },
 ];
 

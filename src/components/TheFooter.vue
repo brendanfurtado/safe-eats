@@ -12,11 +12,6 @@
         >
           {{ link }}
         </v-btn>
-        <!-- <v-col class="text-center" cols="12">
-          <p class="description">
-            {{ new Date().getFullYear() }} — <strong>Safe Eats</strong>
-          </p>
-        </v-col> -->
       </v-row>
     </v-footer>
   </v-card>

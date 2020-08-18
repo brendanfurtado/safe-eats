@@ -102,18 +102,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* div {
-  text-align: center;
-  margin: 20px;
-  justify-content: center;
-} */
 .row {
   justify-content: center;
 }
 .btn {
   margin-top: 13px;
 }
-/* .container {
-  background-color: #f57170;
-} */
 </style>
