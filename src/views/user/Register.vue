@@ -76,7 +76,7 @@
 </template>
 
 <script>
-// import firebase from "firebase";
+import firebase from "firebase";
 
 export default {
   name: "Register",
@@ -104,8 +104,22 @@ export default {
 
   methods: {
     register(event) {
-      console.log(this.registerData.email);
-      console.log(this.registerData.password);
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(
+          this.registerData.email,
+          this.registerData.password
+        )
+        .then(
+          (user) => {
+            console.log(user.user.email);
+            alert(`Account created for ${user.user.email}`);
+            this.$router.push("/");
+          },
+          (err) => {
+            alert(err.message);
+          }
+        );
 
       event.preventDefault();
     },
