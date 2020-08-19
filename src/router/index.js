@@ -6,6 +6,7 @@ import CreatePosts from "../views/CreatePosts.vue";
 import ViewRestaurantProfile from "../views/ViewRestaurantProfile.vue";
 import WriteReview from "../views/WriteReview.vue";
 import Login from "../views/user/Login.vue";
+import Register from "../views/user/Register.vue";
 
 Vue.use(VueRouter);
 
@@ -52,10 +53,18 @@ const routes = [
     component: SearchResults,
   },
   {
-    path: "/login",
+    path: "/users/login",
     props: true,
     name: "Login",
     component: Login,
+  },
+
+  {
+    path: "/register",
+    props: true,
+
+    name: "Register",
+    component: Register,
   },
 ];
 

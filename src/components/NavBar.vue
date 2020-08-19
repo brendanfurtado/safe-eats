@@ -21,13 +21,16 @@
       </v-toolbar-title>
 
       <v-toolbar-title>
-        <v-btn text right @click="$router.push('/Login')">
+        <v-btn text right @click="$router.push('/users/login')">
           <span>Login</span>
         </v-btn>
       </v-toolbar-title>
 
-      <!-- <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> -->
+      <v-toolbar-title>
+        <v-btn text right @click="$router.push('/register')">
+          <span>Register</span>
+        </v-btn>
+      </v-toolbar-title>
     </v-app-bar>
   </div>
 </template>
