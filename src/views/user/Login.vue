@@ -43,7 +43,12 @@
                         </div>
                         <v-card-actions>
                           <v-col class="text-center">
-                            <v-btn color="primary">Login</v-btn>
+                            <v-btn
+                              v-on:click="login"
+                              type="submit"
+                              color="primary"
+                              >Login</v-btn
+                            >
                           </v-col>
                         </v-card-actions>
                       </v-form>
@@ -81,6 +86,8 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: "Login",
   data() {
@@ -104,6 +111,31 @@ export default {
     },
   },
   components: {},
+  methods: {
+    login(event) {
+      try {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(
+            this.loginData.email,
+            this.loginData.password
+          )
+          .then(
+            (user) => {
+              alert(`You are logged in as ${user.user.email}`);
+              this.$router.push("/");
+            },
+            (err) => {
+              alert(err.message);
+            }
+          );
+      } catch (error) {
+        alert(error.message);
+      }
+
+      event.preventDefault();
+    },
+  },
 };
 </script>
 

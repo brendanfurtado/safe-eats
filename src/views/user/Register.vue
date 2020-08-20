@@ -3,7 +3,7 @@
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="6" md="6">
-          <v-card class="elevation-12" color="red lighten-5">
+          <v-card class="elevation-12" color="grey lighten-5">
             <v-window>
               <v-window-item>
                 <v-row>
@@ -33,7 +33,7 @@
                         ></v-text-field>
                         <v-card-actions>
                           <v-col class="text-center">
-                            <v-btn type="submit" color="red">Register</v-btn>
+                            <v-btn type="submit" color="grey">Register</v-btn>
                           </v-col>
                         </v-card-actions>
                       </v-form>
@@ -93,7 +93,7 @@ export default {
   props: {
     bgColor: {
       type: String,
-      default: "red",
+      default: "blue-grey",
     },
     fgColor: {
       type: String,

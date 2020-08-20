@@ -31,12 +31,40 @@
           <span>Register</span>
         </v-btn>
       </v-toolbar-title>
+
+      <v-toolbar-title>
+        <v-btn v-on:click="logout" text right>
+          <span>Logout</span>
+        </v-btn>
+      </v-toolbar-title>
     </v-app-bar>
   </div>
 </template>
 
 <script>
-export default {};
+import firebase from "firebase";
+
+export default {
+  name: "NavBar",
+  data() {
+    return {
+      isLoggedIn: false,
+      currentUser: false,
+    };
+  },
+
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push("/users/login");
+        });
+      console.log(this.isLoggedIn);
+    },
+  },
+};
 </script>
 
 <style scoped>
