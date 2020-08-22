@@ -6,6 +6,8 @@ import location from "./modules/location";
 import search from "./modules/search";
 import reviews from "./modules/reviews";
 import restaurantProfiles from "./modules/restaurantProfiles";
+import auth from "./modules/auth";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -19,5 +21,6 @@ export default new Vuex.Store({
     search,
     reviews,
     restaurantProfiles,
+    auth,
   },
 });

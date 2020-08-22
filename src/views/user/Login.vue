@@ -45,7 +45,7 @@
                           <v-col class="text-center">
                             <v-btn
                               v-on:click="login"
-                              type="submit"
+                              type="button"
                               color="primary"
                               >Login</v-btn
                             >
@@ -87,6 +87,7 @@
 
 <script>
 import firebase from "firebase";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Login",
@@ -95,10 +96,12 @@ export default {
       loginData: {
         email: null,
         password: null,
-        token: null,
-        isLoggedIn: false,
+        // isLoggedIn: false,
       },
     };
+  },
+  computed: {
+    ...mapGetters(["getUser"]),
   },
   props: {
     bgColor: {
@@ -112,9 +115,11 @@ export default {
   },
   components: {},
   methods: {
-    login(event) {
+    ...mapActions(["fetchUser"]),
+
+    async login(event) {
       try {
-        firebase
+        await firebase
           .auth()
           .signInWithEmailAndPassword(
             this.loginData.email,
@@ -123,6 +128,7 @@ export default {
           .then(
             (user) => {
               alert(`You are logged in as ${user.user.email}`);
+              this.fetchUser(this.loginData);
               this.$router.push("/");
             },
             (err) => {
@@ -133,6 +139,8 @@ export default {
         alert(error.message);
       }
 
+      let obj = this.getUser;
+      console.log(obj);
       event.preventDefault();
     },
   },

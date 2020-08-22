@@ -33,7 +33,7 @@
                         ></v-text-field>
                         <v-card-actions>
                           <v-col class="text-center">
-                            <v-btn type="submit" color="grey">Register</v-btn>
+                            <v-btn type="button" color="grey">Register</v-btn>
                           </v-col>
                         </v-card-actions>
                       </v-form>
@@ -104,22 +104,26 @@ export default {
 
   methods: {
     register(event) {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(
-          this.registerData.email,
-          this.registerData.password
-        )
-        .then(
-          (user) => {
-            console.log(user.user.email);
-            alert(`Account created for ${user.user.email}`);
-            this.$router.push("/");
-          },
-          (err) => {
-            alert(err.message);
-          }
-        );
+      try {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(
+            this.registerData.email,
+            this.registerData.password
+          )
+          .then(
+            (user) => {
+              console.log(user.user.email);
+              alert(`Account created for ${user.user.email}`);
+              this.$router.push("/");
+            },
+            (err) => {
+              alert(err.message);
+            }
+          );
+      } catch (error) {
+        alert(error.message);
+      }
 
       event.preventDefault();
     },

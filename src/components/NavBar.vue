@@ -20,7 +20,7 @@
         <v-spacer></v-spacer>
       </v-toolbar-title>
 
-      <v-toolbar-title>
+      <v-toolbar-title v-if="!isLoggedIn">
         <v-btn text right @click="$router.push('/users/login')">
           <span>Login</span>
         </v-btn>
@@ -32,7 +32,7 @@
         </v-btn>
       </v-toolbar-title>
 
-      <v-toolbar-title>
+      <v-toolbar-title v-if="isLoggedIn">
         <v-btn v-on:click="logout" text right>
           <span>Logout</span>
         </v-btn>
@@ -43,25 +43,39 @@
 
 <script>
 import firebase from "firebase";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "NavBar",
   data() {
     return {
       isLoggedIn: false,
-      currentUser: false,
+      currentUser: null,
     };
   },
-
+  created() {
+    if (this.getUser.isLoggedIn) {
+      this.isLoggedIn = true;
+      this.currentUser = this.getUser;
+    } else {
+      this.isLoggedIn = false;
+    }
+  },
+  computed: {
+    ...mapGetters(["getUser"]),
+  },
   methods: {
+    ...mapActions(["logout"]),
+
     logout() {
       firebase
         .auth()
         .signOut()
         .then(() => {
           this.$router.push("/users/login");
+          this.logout;
+          this.currentUser = null;
         });
-      console.log(this.isLoggedIn);
     },
   },
 };
