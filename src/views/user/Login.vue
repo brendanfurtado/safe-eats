@@ -129,7 +129,7 @@ export default {
             (user) => {
               alert(`You are logged in as ${user.user.email}`);
               this.fetchUser(this.loginData);
-              this.$router.push("/");
+              this.$router.go(-1);
             },
             (err) => {
               alert(err.message);
@@ -138,9 +138,6 @@ export default {
       } catch (error) {
         alert(error.message);
       }
-
-      let obj = this.getUser;
-      console.log(obj);
       event.preventDefault();
     },
   },

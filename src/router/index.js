@@ -97,43 +97,33 @@ const router = new VueRouter({
   routes,
 });
 
-//Nav Guards
+// Nav Guard
 router.beforeEach((to, from, next) => {
-  //Check for requiredAuth guard
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    //Check if not logged in
-    if (!firebase.auth().currentUser) {
-      //go to login
-      next({
-        path: "/users/login", //redirect to this path
-        query: {
-          redirect: to.fullPath,
-        },
-      });
+  try {
+    // Check for requiresAuth guard
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+      // Check if NO logged user
+      if (!firebase.auth().currentUser) {
+        // Go to login
+        router.push("/users/login");
+      } else {
+        // Proceed to route
+        next();
+      }
+    } else if (to.matched.some((record) => record.meta.requiresGuest)) {
+      // Check if NO logged user
+      if (firebase.auth().currentUser) {
+        router.go("/");
+      } else {
+        // Proceed to route
+        next();
+      }
     } else {
-      //There is a user logged in so proceed
-      //Proceed to route
+      // Proceed to route
       next();
     }
-  }
-  //Check for requiredGuest guard
-  else if (to.matched.some((record) => record.meta.requiresGuest)) {
-    //Check if logged in
-    if (firebase.auth().currentUser) {
-      //go to login
-      next({
-        path: "/", //redirect to this path
-        query: {
-          redirect: to.fullPath,
-        },
-      });
-    } else {
-      //There is a user logged in so proceed
-      //Proceed to route
-      next();
-    }
-  } else {
-    next(); //Proceed to  route
+  } catch (err) {
+    alert(err.message);
   }
 });
 

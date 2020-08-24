@@ -23,8 +23,9 @@ const actions = {
     }
   },
 
-  logout({ commit }) {
-    commit("SET_LOGGED_IN", false);
+  logoutUser({ commit }, user) {
+    console.log("Logging out");
+    commit("SET_LOGGED_IN", user === null);
     commit("SET_USER", {
       email: null,
     });

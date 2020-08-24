@@ -26,11 +26,11 @@
         </v-btn>
       </v-toolbar-title>
 
-      <v-toolbar-title>
+      <!-- <v-toolbar-title>
         <v-btn text right @click="$router.push('/register')">
           <span>Register</span>
         </v-btn>
-      </v-toolbar-title>
+      </v-toolbar-title> -->
 
       <v-toolbar-title v-if="isLoggedIn">
         <v-btn v-on:click="logout" text right>
@@ -55,27 +55,30 @@ export default {
   },
   created() {
     if (this.getUser.isLoggedIn) {
-      this.isLoggedIn = true;
+      this.isLoggedIn = this.getUser.isLoggedIn;
       this.currentUser = this.getUser;
     } else {
       this.isLoggedIn = false;
+      this.currentUser = null;
     }
   },
   computed: {
     ...mapGetters(["getUser"]),
   },
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions(["logoutUser"]),
 
     logout() {
+      //Set variables to non logged in status
+      this.logoutUser(this.getUser.data.email);
+
       firebase
         .auth()
         .signOut()
         .then(() => {
-          this.$router.push("/users/login");
-          this.logout;
-          this.currentUser = null;
+          this.$router.go({ path: this.$router.path });
         });
+      event.preventDefault();
     },
   },
 };
