@@ -128,8 +128,8 @@ export default {
           )
           .then(
             (user) => {
-              alert(`You are logged in as ${user.user.email}`);
               this.fetchUser(this.loginData);
+              alert(`You are logged in as ${user.user.email}`);
               loginDone = true;
             },
             (err) => {

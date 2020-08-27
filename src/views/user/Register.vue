@@ -111,9 +111,11 @@ export default {
   methods: {
     ...mapActions(["fetchUser"]),
 
-    register(event) {
+    async register(event) {
+      var loginDone = false;
+      const homePath = `/`;
       try {
-        firebase
+        await firebase
           .auth()
           .createUserWithEmailAndPassword(
             this.registerData.email,
@@ -127,8 +129,9 @@ export default {
                 password: this.registerData.password,
               };
               this.fetchUser(object);
-
               alert(`Account created for ${user.user.email}`);
+              loginDone = true;
+
               this.$router.go({ path: this.$router.path });
             },
             (err) => {
@@ -139,8 +142,6 @@ export default {
               ) {
                 this.$router.push("/users/login");
               } else {
-                const homePath = `/`;
-
                 this.$router.push("/");
                 if (this.$router.path !== homePath)
                   this.$router.go({ path: homePath });
@@ -149,6 +150,11 @@ export default {
           );
       } catch (error) {
         alert(error.message);
+      }
+
+      if (loginDone) {
+        this.$router.push("/");
+        if (this.$router.path !== homePath) this.$router.go({ path: homePath });
       }
 
       event.preventDefault();
