@@ -13,7 +13,7 @@
                         >Register</v-card-title
                       >
                       <v-spacer></v-spacer>
-                      <v-form @submit.prevent="register">
+                      <v-form>
                         <v-text-field
                           v-model="registerData.email"
                           id="email"
@@ -33,7 +33,12 @@
                         ></v-text-field>
                         <v-card-actions>
                           <v-col class="text-center">
-                            <v-btn type="button" color="grey">Register</v-btn>
+                            <v-btn
+                              v-on:click="register"
+                              type="button"
+                              color="grey"
+                              >Register</v-btn
+                            >
                           </v-col>
                         </v-card-actions>
                       </v-form>
@@ -77,6 +82,7 @@
 
 <script>
 import firebase from "firebase";
+import { mapActions } from "vuex";
 
 export default {
   name: "Register",
@@ -103,6 +109,8 @@ export default {
   components: {},
 
   methods: {
+    ...mapActions(["fetchUser"]),
+
     register(event) {
       try {
         firebase
@@ -113,18 +121,35 @@ export default {
           )
           .then(
             (user) => {
-              console.log(user.user.email);
+              //setting login parameters
+              var object = {
+                email: this.registerData.email,
+                password: this.registerData.password,
+              };
+              this.fetchUser(object);
+
               alert(`Account created for ${user.user.email}`);
               this.$router.go({ path: this.$router.path });
             },
             (err) => {
               alert(err.message);
+              if (
+                err.message ===
+                "The email address is already in use by another account."
+              ) {
+                this.$router.push("/users/login");
+              } else {
+                const homePath = `/`;
+
+                this.$router.push("/");
+                if (this.$router.path !== homePath)
+                  this.$router.go({ path: homePath });
+              }
             }
           );
       } catch (error) {
         alert(error.message);
       }
-      this.$router.push("/");
 
       event.preventDefault();
     },
