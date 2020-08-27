@@ -118,6 +118,7 @@ export default {
     ...mapActions(["fetchUser"]),
 
     async login(event) {
+      var loginDone = false;
       try {
         await firebase
           .auth()
@@ -129,7 +130,7 @@ export default {
             (user) => {
               alert(`You are logged in as ${user.user.email}`);
               this.fetchUser(this.loginData);
-              this.$router.go(-1);
+              loginDone = true;
             },
             (err) => {
               alert(err.message);
@@ -137,6 +138,12 @@ export default {
           );
       } catch (error) {
         alert(error.message);
+      }
+      //Workaround of redirecting after a user logs in
+      if (loginDone) {
+        const homePath = `/`;
+        this.$router.push("/");
+        if (this.$router.path !== homePath) this.$router.go({ path: homePath });
       }
       event.preventDefault();
     },

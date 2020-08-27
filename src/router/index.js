@@ -111,9 +111,8 @@ router.beforeEach((to, from, next) => {
         next();
       }
     } else if (to.matched.some((record) => record.meta.requiresGuest)) {
-      // Check if NO logged user
-      if (firebase.auth().currentUser) {
-        router.go("/");
+      if (firebase.auth().currentUser !== null) {
+        router.push("/");
       } else {
         // Proceed to route
         next();

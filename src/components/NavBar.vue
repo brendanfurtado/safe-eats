@@ -57,9 +57,6 @@ export default {
     if (this.getUser.isLoggedIn) {
       this.isLoggedIn = this.getUser.isLoggedIn;
       this.currentUser = this.getUser;
-    } else {
-      this.isLoggedIn = false;
-      this.currentUser = null;
     }
   },
   computed: {
@@ -71,7 +68,8 @@ export default {
     logout() {
       //Set variables to non logged in status
       this.logoutUser(this.getUser.data.email);
-
+      this.isLoggedIn = false;
+      this.currentUser = null;
       firebase
         .auth()
         .signOut()
