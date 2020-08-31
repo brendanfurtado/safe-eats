@@ -13,7 +13,10 @@
                         >Register</v-card-title
                       >
                       <v-spacer></v-spacer>
-                      <v-form>
+                      <v-form
+                        @submit.prevent="register"
+                        id="check-register-form"
+                      >
                         <v-text-field
                           v-model="registerData.email"
                           id="email"
@@ -33,9 +36,11 @@
                         ></v-text-field>
                         <v-card-actions>
                           <v-col class="text-center">
+                            <!-- v-on:click="register" -->
+
                             <v-btn
-                              v-on:click="register"
-                              type="button"
+                              type="submit"
+                              form="check-register-form"
                               color="grey"
                               >Register</v-btn
                             >
@@ -61,12 +66,14 @@
                         </h5>
                       </v-card-text>
                       <div class="text-center mb-6">
-                        <v-btn
-                          dark
-                          outlined
+                        <a
+                          href="#"
+                          class="mt-3 overline no-text-decoration"
+                          :class="`${fgColor}--text`"
                           @click="$router.push('/users/login')"
-                          >Sign In</v-btn
                         >
+                          Sign In
+                        </a>
                       </div>
                     </div>
                   </v-col>

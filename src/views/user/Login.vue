@@ -13,7 +13,7 @@
                         >Login</v-card-title
                       >
                       <v-spacer></v-spacer>
-                      <v-form>
+                      <v-form @submit.prevent="login" id="check-login-form">
                         <v-text-field
                           v-model="loginData.email"
                           id="email"
@@ -43,10 +43,11 @@
                         </div>
                         <v-card-actions>
                           <v-col class="text-center">
+                            <!-- v-on:click="login" -->
                             <v-btn
-                              v-on:click="login"
-                              type="button"
+                              type="submit"
                               color="primary"
+                              form="check-login-form"
                               >Login</v-btn
                             >
                           </v-col>
@@ -69,9 +70,14 @@
                         </h5>
                       </v-card-text>
                       <div class="text-center mb-6">
-                        <v-btn dark outlined @click="$router.push('/register')"
-                          >Sign Up</v-btn
+                        <a
+                          href="#"
+                          class="mt-3 overline no-text-decoration"
+                          :class="`${fgColor}--text`"
+                          @click="$router.push('/register')"
                         >
+                          Sign Up
+                        </a>
                       </div>
                     </div>
                   </v-col>
@@ -96,7 +102,6 @@ export default {
       loginData: {
         email: null,
         password: null,
-        // isLoggedIn: false,
       },
     };
   },
