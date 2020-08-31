@@ -6,103 +6,101 @@
         v-if="getRestaurants && getRestaurants.length"
         class="restaurantList"
       >
-        <v-container id="scroll-target" class="overflow-y-auto">
-          <v-container
-            v-for="restaurant in this.restaurants"
-            :key="restaurant.id"
-          >
-            <v-hover v-slot:default="{ hover }">
-              <v-card
-                max-width="800"
-                :elevation="hover ? 6 : 2"
-                height="285"
-                @click="viewProfile(restaurant.id, $event)"
-              >
-                <v-container>
-                  <v-row dense>
-                    <v-col class="rows">
-                      <v-card max-width="250" height="250">
-                        <v-img
-                          :src="restaurant.image_url"
-                          class="white--text align-end"
-                          height="250px"
-                        >
-                        </v-img>
-                      </v-card>
+        <v-container
+          v-for="restaurant in this.restaurants"
+          :key="restaurant.id"
+        >
+          <v-hover v-slot:default="{ hover }">
+            <v-card
+              max-width="800"
+              :elevation="hover ? 6 : 2"
+              height="285"
+              @click="viewProfile(restaurant.id, $event)"
+            >
+              <v-container>
+                <v-row dense>
+                  <v-col class="rows">
+                    <v-card max-width="250" height="250">
+                      <v-img
+                        :src="restaurant.image_url"
+                        class="white--text align-end"
+                        height="250px"
+                      >
+                      </v-img>
+                    </v-card>
 
-                      <v-card-text class="description">
-                        <v-row align="center">
-                          <v-card-title class="font-weight-black"
-                            ><router-link
+                    <v-card-text class="description">
+                      <v-row align="center">
+                        <v-card-title class="font-weight-black"
+                          ><router-link
+                            v-bind:to="{
+                              path: `/restaurants/view/${restaurant.id}`,
+                              params: { restaurantID: restaurant.id },
+                            }"
+                          >
+                            {{ restaurant.name }}
+                          </router-link>
+                        </v-card-title>
+                      </v-row>
+
+                      <v-row align="center" class="mx-0">
+                        <v-rating
+                          :value="restaurant.rating"
+                          color="amber"
+                          dense
+                          half-increments
+                          readonly
+                          size="14"
+                        ></v-rating>
+                        <div class="ml-4">
+                          {{ restaurant.rating }}
+                        </div>
+                      </v-row>
+
+                      <v-spacer></v-spacer>
+
+                      <v-card-text class="text--primary">
+                        <div>{{ restaurant.location.city }}</div>
+
+                        <div>{{ restaurant.location.address1 }}</div>
+                      </v-card-text>
+
+                      <v-row>
+                        <v-card-actions>
+                          <v-col cols="6">
+                            <v-btn
+                              @click="openYelp(restaurant.url)"
+                              color="primary"
+                              x-large
+                              text
+                            >
+                              Yelp Page
+                            </v-btn>
+                          </v-col>
+                          <v-spacer></v-spacer>
+
+                          <v-col cols="6">
+                            <router-link
                               v-bind:to="{
-                                path: `/restaurants/view/${restaurant.id}`,
-                                params: { restaurantID: restaurant.id },
+                                path: `/write/review/${restaurant.id}`,
+                                params: { restaurant_id: restaurant.id },
                               }"
                             >
-                              {{ restaurant.name }}
+                              <v-btn color="primary" x-large text
+                                >Write a Safety Review</v-btn
+                              >
                             </router-link>
-                          </v-card-title>
-                        </v-row>
-
-                        <v-row align="center" class="mx-0">
-                          <v-rating
-                            :value="restaurant.rating"
-                            color="amber"
-                            dense
-                            half-increments
-                            readonly
-                            size="14"
-                          ></v-rating>
-                          <div class="ml-4">
-                            {{ restaurant.rating }}
-                          </div>
-                        </v-row>
-
-                        <v-spacer></v-spacer>
-
-                        <v-card-text class="text--primary">
-                          <div>{{ restaurant.location.city }}</div>
-
-                          <div>{{ restaurant.location.address1 }}</div>
-                        </v-card-text>
-
-                        <v-row>
-                          <v-card-actions>
-                            <v-col cols="6">
-                              <v-btn
-                                @click="openYelp(restaurant.url)"
-                                color="primary"
-                                x-large
-                                text
-                              >
-                                Yelp Page
-                              </v-btn>
-                            </v-col>
-                            <v-spacer></v-spacer>
-
-                            <v-col cols="6">
-                              <router-link
-                                v-bind:to="{
-                                  path: `/write/review/${restaurant.id}`,
-                                  params: { restaurant_id: restaurant.id },
-                                }"
-                              >
-                                <v-btn color="primary" x-large text
-                                  >Write a Safety Review</v-btn
-                                >
-                              </router-link>
-                            </v-col>
-                          </v-card-actions>
-                        </v-row>
-                      </v-card-text>
-                    </v-col>
-                  </v-row>
-                </v-container>
-                <v-spacer></v-spacer>
-              </v-card>
-            </v-hover>
-            <v-spacer></v-spacer>
-          </v-container>
+                          </v-col>
+                        </v-card-actions>
+                      </v-row>
+                    </v-card-text>
+                  </v-col>
+                </v-row>
+              </v-container>
+              <v-spacer></v-spacer>
+            </v-card>
+          </v-hover>
+          <v-spacer></v-spacer>
         </v-container>
       </div>
     </div>
