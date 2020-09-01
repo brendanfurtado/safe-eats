@@ -103,7 +103,9 @@
           <v-spacer></v-spacer>
         </v-container>
       </div>
+      <v-divider class="mx-4" vertical inset light></v-divider>
     </div>
+
     <!-- Redirect to home if nothing here -->
 
     <div v-else @mousemove="redirect">
@@ -173,9 +175,10 @@ a {
 
 .scroll {
   overflow-y: auto;
-  height: 725px;
-  width: 800px;
-  /* width: 900px; */
-  /* max-width: 900px; */
+  overflow-x: hidden;
+  padding-right: 10px;
+
+  height: 705px;
+  width: 820px;
 }
 </style>
