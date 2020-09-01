@@ -4,7 +4,7 @@
       <SearchBar @termChange="onTermChange"></SearchBar>
       <div
         v-if="getRestaurants && getRestaurants.length"
-        class="restaurantList"
+        class="restaurantList scroll"
       >
         <v-container
           v-for="restaurant in this.restaurants"
@@ -169,5 +169,13 @@ p {
 }
 a {
   text-decoration: none;
+}
+
+.scroll {
+  overflow-y: auto;
+  height: 725px;
+  width: 800px;
+  /* width: 900px; */
+  /* max-width: 900px; */
 }
 </style>
