@@ -1,7 +1,7 @@
 <template>
   <div class="Searchbar">
     <v-container>
-      <v-form class="container">
+      <v-form class="container" id="search" @submit.prevent="onInput">
         <v-row no-gutters class="row">
           <v-col cols="6" md="4" class="pa-2" outlined tile>
             <v-text-field
@@ -22,13 +22,7 @@
             ></v-text-field>
           </v-col>
 
-          <v-btn
-            elevation="2"
-            outlined
-            type="button"
-            v-on:click="onInput"
-            class="btn"
-          >
+          <v-btn elevation="2" outlined type="submit" class="btn">
             <v-icon>fas fa-search</v-icon>
           </v-btn>
         </v-row>
