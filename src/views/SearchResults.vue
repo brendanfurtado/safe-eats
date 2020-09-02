@@ -4,7 +4,7 @@
       <SearchBar @termChange="onTermChange"></SearchBar>
       <div
         v-if="getRestaurants && getRestaurants.length"
-        class="restaurantList"
+        class="restaurantList container"
       >
         <div class="scroll">
           <v-container
@@ -105,9 +105,11 @@
             <v-spacer></v-spacer>
           </v-container>
         </div>
-        <v-container>
-          <RestaurantProfile :restaurantID="restaurantID"></RestaurantProfile>
-        </v-container>
+        <div class="profile">
+          <v-container>
+            <RestaurantProfile :restaurantID="restaurantID"></RestaurantProfile>
+          </v-container>
+        </div>
       </div>
       <v-divider class="mx-4" vertical inset light></v-divider>
     </div>
@@ -187,10 +189,20 @@ p {
 } */
 
 .scroll {
+  float: left;
   overflow-y: auto;
   padding-right: 10px;
-
   height: 680px;
   width: 820px;
 }
+
+/* .container {
+  width: 100%;
+  height: 680px;
+  margin: auto;
+} */
+
+/* .profile {
+  display: flex;
+} */
 </style>
