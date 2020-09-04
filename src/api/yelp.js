@@ -44,10 +44,25 @@ export default {
     }
   },
   async getProfile(restaurantID) {
-    return axios
-      .get(`http://localhost:5000/view/${restaurantID}`)
-      .then((response) => {
-        return response;
-      });
+    let error;
+    if (restaurantID === null) {
+      return;
+    }
+    try {
+      return await axios
+        .get(`http://localhost:5000/view/${restaurantID}`)
+        .catch((err) => {
+          if (err.response.status === 404) {
+            throw new Error(`${err.config.url} not found`);
+          }
+          throw err;
+        })
+        .then((response) => {
+          return response;
+        });
+    } catch (err) {
+      error = err;
+      console.log(error);
+    }
   },
 };
