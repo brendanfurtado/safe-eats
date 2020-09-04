@@ -152,12 +152,6 @@ export default {
       this.restaurants = await this.getRestaurants;
     },
 
-    // viewProfile(ID) {
-    //   this.$router.push({
-    //     path: `/restaurants/view/${ID}`,
-    //     params: { restaurantID: ID },
-    //   });
-    // },
     viewProfile(ID) {
       this.restaurantID = ID;
     },
