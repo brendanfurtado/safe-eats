@@ -183,6 +183,10 @@ a {
   overflow-x: scroll;
 } */
 
+.description {
+  text-decoration-line: underline;
+}
+
 .scroll {
   float: left;
   overflow-y: auto;
@@ -194,7 +198,8 @@ a {
 .profile {
   max-width: 1280px;
   min-width: 100px;
-  overflow-y: scroll;
+  height: 680px;
+  overflow-y: auto;
   overflow-x: scroll;
 }
 </style>

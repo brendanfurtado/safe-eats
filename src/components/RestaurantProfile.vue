@@ -6,6 +6,26 @@
       </div>
       <div v-else>
         {{ profileData.name }}
+        <div>
+          <v-carousel
+            cycle
+            height="400"
+            hide-delimiter-background
+            show-arrows-on-hover
+          >
+            <v-carousel-item v-for="(photo, i) in profileData.photos" :key="i">
+              <v-row align="center" justify="center">
+                <v-img
+                  class="white--text align-end"
+                  height="auto"
+                  max-width="500"
+                  :src="profileData.photos[i]"
+                >
+                </v-img>
+              </v-row>
+            </v-carousel-item>
+          </v-carousel>
+        </div>
         <v-container>
           <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting
