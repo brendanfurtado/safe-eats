@@ -31,8 +31,8 @@
                         </v-img>
                       </v-card>
 
-                      <v-card-text class="description">
-                        <v-row align="center">
+                      <v-card-text>
+                        <v-row align="center" class="description">
                           <v-card-title class="font-weight-black">
                             <router-link
                               v-bind:to="{
@@ -180,7 +180,7 @@ a {
 }
 
 /* .container {
-  overflow-x: scroll;
+  margin-left: 0px;
 } */
 
 .description {
