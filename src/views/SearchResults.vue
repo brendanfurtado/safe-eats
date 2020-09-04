@@ -13,13 +13,13 @@
           >
             <v-hover v-slot:default="{ hover }">
               <v-card
-                max-width="800"
+                max-width="620"
                 :elevation="hover ? 6 : 2"
                 height="285"
                 active-class="highlighted"
                 @click="viewProfile(restaurant.id, $event)"
               >
-                <v-container>
+                <v-container fluid>
                   <v-row dense>
                     <v-col class="rows">
                       <v-card max-width="250" height="250">
@@ -61,7 +61,7 @@
 
                         <v-spacer></v-spacer>
 
-                        <v-card-text class="text--primary">
+                        <v-card-text class="text-primary">
                           <div>{{ restaurant.location.city }}</div>
 
                           <div>{{ restaurant.location.address1 }}</div>
@@ -73,14 +73,13 @@
                               <v-btn
                                 @click="openYelp(restaurant.url)"
                                 color="primary"
-                                x-large
+                                medium
                                 text
                               >
                                 Yelp Page
                               </v-btn>
                             </v-col>
                             <v-spacer></v-spacer>
-
                             <v-col cols="6">
                               <router-link
                                 v-bind:to="{
@@ -88,8 +87,8 @@
                                   params: { restaurant_id: restaurant.id },
                                 }"
                               >
-                                <v-btn color="primary" x-large text
-                                  >Write a Safety Review</v-btn
+                                <v-btn color="primary" medium text
+                                  >Write a Review</v-btn
                                 >
                               </router-link>
                             </v-col>
@@ -106,7 +105,7 @@
           </v-container>
         </div>
         <div class="profile">
-          <v-container>
+          <v-container fluid>
             <RestaurantProfile :restaurantID="restaurantID"></RestaurantProfile>
           </v-container>
         </div>
@@ -176,8 +175,12 @@ export default {
 p {
   font-size: 25px;
 }
-/* a {
+a {
   text-decoration: none;
+}
+
+/* .container {
+  overflow-x: scroll;
 } */
 
 .scroll {
@@ -185,16 +188,13 @@ p {
   overflow-y: auto;
   padding-right: 10px;
   height: 680px;
-  width: 820px;
+  width: 650px;
 }
 
-/* .container {
-  width: 100%;
-  height: 680px;
-  margin: auto;
-} */
-
-/* .profile {
-  display: flex;
-} */
+.profile {
+  max-width: 1280px;
+  min-width: 100px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
 </style>
