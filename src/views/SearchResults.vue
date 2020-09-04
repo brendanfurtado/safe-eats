@@ -160,7 +160,6 @@ export default {
     // },
     viewProfile(ID) {
       this.restaurantID = ID;
-      console.log(this.restaurantID);
     },
 
     openYelp(searchUrl) {
@@ -177,7 +176,6 @@ export default {
 <style scoped>
 .rows {
   display: flex;
-
   flex-direction: row;
 }
 

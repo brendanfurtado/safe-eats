@@ -1,6 +1,7 @@
 <template>
   <div>
     <SearchBar></SearchBar>
+
     <div v-if="loading && loadingReviews" class="loading">
       Loading...
     </div>
@@ -86,10 +87,6 @@ export default {
     return {
       loading: false,
       loadingReviews: false,
-
-      id: null,
-      reviewPost: null,
-      rating: null,
 
       profileData: [],
       reviews: [],
