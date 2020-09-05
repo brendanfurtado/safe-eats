@@ -5,7 +5,9 @@
         Loading...
       </div>
       <div v-else>
-        {{ profileData.name }}
+        <div>
+          <h1>{{ profileData.name }}</h1>
+        </div>
         <div>
           <v-carousel
             cycle

@@ -10,6 +10,7 @@
           <v-container
             v-for="restaurant in this.restaurants"
             :key="restaurant.id"
+            fluid
           >
             <v-hover v-slot:default="{ hover }">
               <v-card
@@ -25,7 +26,7 @@
                       <v-card max-width="250" height="250">
                         <v-img
                           :src="restaurant.image_url"
-                          class="white--text align-end"
+                          class="white--text align-end image"
                           height="250px"
                         >
                         </v-img>
@@ -105,7 +106,7 @@
           </v-container>
         </div>
         <div class="profile">
-          <v-container fluid>
+          <v-container fluid class="asd">
             <RestaurantProfile :restaurantID="restaurantID"></RestaurantProfile>
           </v-container>
         </div>
@@ -175,13 +176,14 @@ export default {
 p {
   font-size: 25px;
 }
+
 a {
   text-decoration: none;
 }
 
-/* .container {
-  margin-left: 0px;
-} */
+.container {
+  margin: 0 auto;
+}
 
 .description {
   text-decoration-line: underline;
@@ -190,14 +192,13 @@ a {
 .scroll {
   float: left;
   overflow-y: auto;
-  padding-right: 10px;
+  padding-right: 5px;
   height: 680px;
   width: 650px;
 }
 
 .profile {
-  max-width: 1280px;
-  min-width: 100px;
+  min-width: 500px;
   height: 680px;
   overflow-y: auto;
   overflow-x: scroll;
