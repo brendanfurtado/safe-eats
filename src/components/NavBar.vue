@@ -54,10 +54,16 @@ export default {
     };
   },
   created() {
-    if (this.getUser.isLoggedIn) {
-      this.isLoggedIn = this.getUser.isLoggedIn;
-      this.currentUser = this.getUser;
-    }
+    var vm = this;
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        vm.currentUser = user;
+        vm.isLoggedIn = true;
+      } else {
+        vm.currentUser = null;
+        vm.isLoggedIn = false;
+      }
+    });
   },
   computed: {
     ...mapGetters(["getUser"]),
