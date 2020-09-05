@@ -53,11 +53,12 @@ export default {
       currentUser: null,
     };
   },
-  created() {
+  async created() {
     var vm = this;
-    firebase.auth().onAuthStateChanged(function(user) {
+    await firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        vm.currentUser = user;
+        vm.fetchUser(user);
+        vm.currentUser = this.getUser;
         vm.isLoggedIn = true;
       } else {
         vm.currentUser = null;
@@ -69,7 +70,7 @@ export default {
     ...mapGetters(["getUser"]),
   },
   methods: {
-    ...mapActions(["logoutUser"]),
+    ...mapActions(["logoutUser", "fetchUser"]),
 
     logout() {
       //Set variables to non logged in status
