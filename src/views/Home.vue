@@ -1,17 +1,18 @@
 <template>
   <div class="home">
-    <h2>Safe Eats</h2>
-    <p>
-      Search for restaurants that accommodate your dietary restrictions
-    </p>
-    <SearchBar></SearchBar>
-
-    <div v-if="getReviews">
+    <div class="header">
+      <h1>Safe Eat</h1>
+      <p>
+        Search for restaurants that accommodate your dietary restrictions
+      </p>
+      <SearchBar></SearchBar>
+    </div>
+    <div v-if="getReviews" class="reviews">
       <h2>Featured Safe Eats Restaurants</h2>
       <v-card
         v-for="review in this.postedReviews"
         :key="review.id"
-        class="mx-auto"
+        class="mx-auto featured"
         max-width="600"
       >
         <v-card-title class="font-weight-black">
@@ -73,10 +74,23 @@ export default {
 </script>
 
 <style scoped>
-div {
+/* div {
   margin-top: 50px;
-}
+} */
+
 a {
   text-decoration: none;
+}
+.header {
+  background-color: #add8e6;
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+.reviews {
+  padding-top: 50px;
+}
+.featured {
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 </style>

@@ -107,5 +107,6 @@ export default {
 }
 .btn {
   margin-top: 13px;
+  background-color: white;
 }
 </style>

@@ -21,7 +21,7 @@
 export default {
   name: "TheFooter",
   data: () => ({
-    links: ["Home", "About Us", "Team", "Contact Us"],
+    links: ["About", "Contact", "Privacy Policy", "Food Disclaimer"],
   }),
 };
 </script>

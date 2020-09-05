@@ -63,9 +63,14 @@
                         <v-spacer></v-spacer>
 
                         <v-card-text class="text-primary">
-                          <div>{{ restaurant.location.city }}</div>
+                          <div>
+                            {{ restaurant.location.address1 }},
+                            {{ restaurant.location.city }}
+                          </div>
 
-                          <div>{{ restaurant.location.address1 }}</div>
+                          <div>
+                            {{ restaurant.display_phone }}
+                          </div>
                         </v-card-text>
 
                         <v-row>
@@ -187,6 +192,7 @@ a {
 
 .description {
   text-decoration-line: underline;
+  overflow-y: auto;
 }
 
 .scroll {
