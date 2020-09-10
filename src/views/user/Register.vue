@@ -67,7 +67,6 @@
                       </v-card-text>
                       <div class="text-center mb-6">
                         <a
-                          href="#"
                           class="mt-3 overline no-text-decoration"
                           :class="`${fgColor}--text`"
                           @click="$router.push('/users/login')"
