@@ -124,4 +124,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+/* .container {
+  margin: 0 auto;
+  float: left;
+  max-width: 3000%;
+} */
+</style>

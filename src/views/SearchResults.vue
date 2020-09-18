@@ -11,28 +11,34 @@
             v-for="restaurant in this.restaurants"
             :key="restaurant.id"
             fluid
+            lg12
           >
-            <v-hover v-slot:default="{ hover }">
-              <v-card
-                max-width="620"
-                :elevation="hover ? 6 : 2"
-                height="285"
-                active-class="highlighted"
-                @click="viewProfile(restaurant.id, $event)"
-              >
-                <v-container fluid>
-                  <v-row dense>
-                    <v-col class="rows">
-                      <v-card max-width="250" height="250">
-                        <v-img
-                          :src="restaurant.image_url"
-                          class="white--text align-end image"
-                          height="250px"
-                        >
-                        </v-img>
-                      </v-card>
+            <v-layout>
+              <v-flex sm6 md6 lg12>
+                <v-card
+                  :elevation="hover ? 6 : 2"
+                  class="mx-auto"
+                  max-width="100%"
+                  max-height="285"
+                  @click="viewProfile(restaurant.id, $event)"
+                >
+                  <v-container fluid>
+                    <v-row dense>
+                      <v-col>
+                        <v-flex align-center>
+                          <v-card max-width="250" max-height="285">
+                            <v-img
+                              :src="restaurant.image_url"
+                              class="white--text justify-center image"
+                              aspect-ratio="1"
+                              height="285"
+                            >
+                            </v-img>
+                          </v-card>
+                        </v-flex>
+                      </v-col>
 
-                      <v-card-text>
+                      <v-col>
                         <v-row align="center" class="description">
                           <v-card-title class="font-weight-black">
                             <router-link
@@ -60,60 +66,60 @@
                           </div>
                         </v-row>
 
-                        <v-spacer></v-spacer>
-
-                        <v-card-text class="text-primary">
-                          <div>
+                        <v-row align="center" class="mx-0">
+                          <v-card-text>
                             {{ restaurant.location.address1 }},
                             {{ restaurant.location.city }}
-                          </div>
-
-                          <div>
+                          </v-card-text>
+                          <v-card-text>
                             {{ restaurant.display_phone }}
-                          </div>
-                        </v-card-text>
+                          </v-card-text>
+                        </v-row>
 
                         <v-row>
                           <v-card-actions>
-                            <v-col cols="6">
+                            <v-col md6 lg12>
                               <v-btn
                                 @click="openYelp(restaurant.url)"
                                 color="primary"
-                                medium
+                                xlarge
                                 text
                               >
                                 Yelp Page
                               </v-btn>
                             </v-col>
-                            <v-spacer></v-spacer>
-                            <v-col cols="6">
+                            <v-col md6 lg12>
                               <router-link
                                 v-bind:to="{
                                   path: `/write/review/${restaurant.id}`,
                                   params: { restaurant_id: restaurant.id },
                                 }"
                               >
-                                <v-btn color="primary" medium text
+                                <v-btn color="primary" xlarge text
                                   >Write a Review</v-btn
                                 >
                               </router-link>
                             </v-col>
                           </v-card-actions>
                         </v-row>
-                      </v-card-text>
-                    </v-col>
-                  </v-row>
-                </v-container>
-                <v-spacer></v-spacer>
-              </v-card>
-            </v-hover>
-            <v-spacer></v-spacer>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card>
+              </v-flex>
+            </v-layout>
           </v-container>
         </div>
         <div class="profile">
-          <v-container fluid class="asd">
-            <RestaurantProfile :restaurantID="restaurantID"></RestaurantProfile>
-          </v-container>
+          <v-layout>
+            <v-flex sm6 md6 lg12>
+              <v-container fluid>
+                <RestaurantProfile
+                  :restaurantID="restaurantID"
+                ></RestaurantProfile>
+              </v-container>
+            </v-flex>
+          </v-layout>
         </div>
       </div>
       <v-divider class="mx-4" vertical inset light></v-divider>
@@ -173,38 +179,31 @@ export default {
 </script>
 
 <style scoped>
-.rows {
-  display: flex;
-  flex-direction: row;
-}
-
-p {
-  font-size: 25px;
-}
-
 a {
   text-decoration: none;
 }
 
 .container {
   margin: 0 auto;
+  float: left;
 }
 
 .description {
   text-decoration-line: underline;
   overflow-y: auto;
+  justify-content: left;
 }
 
 .scroll {
   float: left;
   overflow-y: auto;
-  padding-right: 5px;
   height: 680px;
-  width: 650px;
+  max-width: 50%;
 }
 
 .profile {
-  min-width: 500px;
+  /* min-width: 500px; */
+
   height: 680px;
   overflow-y: auto;
   overflow-x: scroll;
