@@ -1,41 +1,42 @@
 <template>
-  <div>
+  <v-app class="mainContainer">
     <div v-if="getRestaurants.length">
       <SearchBar @termChange="onTermChange"></SearchBar>
+
       <div
         v-if="getRestaurants && getRestaurants.length"
-        class="restaurantList container"
+        class="restaurantList container scroll"
       >
-        <div class="scroll">
-          <v-container
-            v-for="restaurant in this.restaurants"
-            :key="restaurant.id"
-            fluid
-            lg12
-          >
-            <v-layout>
-              <v-flex sm6 md6 lg12>
+        <v-container
+          v-for="restaurant in this.restaurants"
+          :key="restaurant.id"
+          fluid
+          lg12
+        >
+          <v-layout>
+            <v-flex sm6 md6 lg12>
+              <v-hover v-slot:default="{ hover }">
                 <v-card
                   :elevation="hover ? 6 : 2"
                   class="mx-auto"
                   max-width="100%"
                   max-height="285"
+                  active-class="highlighted"
                   @click="viewProfile(restaurant.id, $event)"
                 >
                   <v-container fluid>
                     <v-row dense>
                       <v-col>
-                        <v-flex align-center>
-                          <v-card max-width="250" max-height="285">
-                            <v-img
-                              :src="restaurant.image_url"
-                              class="white--text justify-center image"
-                              aspect-ratio="1"
-                              height="285"
-                            >
-                            </v-img>
-                          </v-card>
-                        </v-flex>
+                        <!-- <v-flex align-center> -->
+                        <v-card max-width="250" max-height="250">
+                          <v-img
+                            :src="restaurant.image_url"
+                            class="white--text justify-center image"
+                            height="250"
+                          >
+                          </v-img>
+                        </v-card>
+                        <!-- </v-flex> -->
                       </v-col>
 
                       <v-col>
@@ -106,11 +107,14 @@
                     </v-row>
                   </v-container>
                 </v-card>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </div>
-        <div class="profile">
+              </v-hover>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </div>
+      <!-- style="border: solid 2px red" -->
+      <div class="profile">
+        <v-container>
           <v-layout>
             <v-flex sm6 md6 lg12>
               <v-container fluid>
@@ -120,8 +124,9 @@
               </v-container>
             </v-flex>
           </v-layout>
-        </div>
+        </v-container>
       </div>
+
       <v-divider class="mx-4" vertical inset light></v-divider>
     </div>
 
@@ -132,7 +137,7 @@
         No Results Found
       </h1>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -182,11 +187,15 @@ export default {
 a {
   text-decoration: none;
 }
-
-.container {
-  margin: 0 auto;
-  float: left;
+#app > div > div > div.restaurantList.container.scroll {
+  max-width: 50%;
 }
+.rows {
+  display: flex;
+  flex-direction: row;
+}
+/* .container {
+} */
 
 .description {
   text-decoration-line: underline;
@@ -196,16 +205,17 @@ a {
 
 .scroll {
   float: left;
+
   overflow-y: auto;
   height: 680px;
   max-width: 50%;
 }
 
 .profile {
-  /* min-width: 500px; */
-
+  /* max-width: 100%; */
   height: 680px;
   overflow-y: auto;
   overflow-x: scroll;
+  /* overflow: hidden; */
 }
 </style>
