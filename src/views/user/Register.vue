@@ -17,6 +17,32 @@
                         @submit.prevent="register"
                         id="check-register-form"
                       >
+                        <v-row>
+                          <v-col cols="12" md="6">
+                            <v-text-field
+                              v-model="registerData.firstName"
+                              id="firstName"
+                              label="First Name"
+                              name="firstName"
+                              prepend-icon="mdi-account"
+                              type="text"
+                              required
+                            >
+                            </v-text-field>
+                          </v-col>
+                          <v-col cols="12" md="6">
+                            <v-text-field
+                              v-model="registerData.lastName"
+                              id="lastName"
+                              label="Last Name"
+                              name="lastName"
+                              prepend-icon="mdi-account"
+                              type="text"
+                              required
+                            >
+                            </v-text-field>
+                          </v-col>
+                        </v-row>
                         <v-text-field
                           v-model="registerData.email"
                           id="email"
@@ -25,6 +51,7 @@
                           prepend-icon="mdi-account"
                           type="text"
                         ></v-text-field>
+                        <!-- required -->
 
                         <v-text-field
                           v-model="registerData.password"
@@ -33,15 +60,45 @@
                           name="password"
                           prepend-icon="mdi-lock"
                           type="password"
+                          v-validate="'required|min:6|customPassword'"
+                          data-vv-name="password"
+                          ref="password"
                         ></v-text-field>
+                        <!-- required -->
+                        <ul style="color:red" class="overline text-left">
+                          <li v-for="(error, index) in errors" :key="index">
+                            <span>{{ error }}</span>
+                          </li>
+                        </ul>
+
+                        <v-text-field
+                          v-model="registerData.verifyPassword"
+                          id="verifyPassword"
+                          label="Verify Password"
+                          name="verifyPassword"
+                          prepend-icon="mdi-lock"
+                          type="password"
+                          v-validate="{
+                            required: true,
+                            is: registerData.password,
+                          }"
+                          data-vv-as="password"
+                          data-vv-name="verifyPassword"
+                          required
+                        ></v-text-field>
+                        <ul style="color:red" class="overline text-left">
+                          <li v-for="(error, index) in errors" :key="index">
+                            <span>{{ error }}</span>
+                          </li>
+                        </ul>
+
                         <v-card-actions>
                           <v-col class="text-center">
-                            <!-- v-on:click="register" -->
-
                             <v-btn
                               type="submit"
                               form="check-register-form"
                               color="grey"
+                              :disabled="!valid"
                               >Register</v-btn
                             >
                           </v-col>
@@ -49,7 +106,6 @@
                       </v-form>
                     </v-card-text>
                   </v-col>
-
                   <v-col
                     cols="12"
                     md="4"
@@ -89,16 +145,47 @@
 <script>
 import firebase from "firebase";
 import { mapActions } from "vuex";
+// import { ValidationProvider, ValidationObserver, extend } from 'vee-validate'
+
+// // create custom error message for custom rule
+// var errorMessage =
+//  " min length 8 chars, and must include 1 lower-case, upper-case, numeral and special character (#!@$%^*-)";
+
+// // create custom rule
+// extend("customPassword", {
+//   message: field => "The " + `${field}` + errorMessage,
+//   validate: value => {
+//     var notTheseChars = /["'?&/<>\s]/;
+//     var mustContainTheseChars = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#!@$%^*-]).{8,}$/;
+//     var containsForbiddenChars = notTheseChars.test(value);
+//     var containsRequiredChars = mustContainTheseChars.test(value);
+//     if (containsRequiredChars && !containsForbiddenChars) {
+//       return true;
+//     } else {
+//         if (containsForbiddenChars) {
+//           errorMessage = ' contains forbidden characters: " ' + " ' ? & / < > or space";
+//         }
+//         else { errorMessage = " min length 8 chars, and must include 1 lower-case, upper-case, numeral and special character ($@$!%*#?&)";
+//         }
+//         return false;
+//       }
+//     }
+// });
 
 export default {
   name: "Register",
+
   data() {
     return {
       registerData: {
+        firstName: null,
+        lastName: null,
         email: null,
         password: null,
+        verifyPassword: null,
         token: null,
         isLoggedIn: false,
+        errors: null,
       },
     };
   },
@@ -112,7 +199,7 @@ export default {
       default: "white",
     },
   },
-  components: {},
+  // components: {ValidationProvider, ValidationObserver},
 
   methods: {
     ...mapActions(["fetchUser"]),
@@ -142,10 +229,7 @@ export default {
             },
             (err) => {
               alert(err.message);
-              if (
-                err.message ===
-                "The email address is already in use by another account."
-              ) {
+              if (err.message !== null || err.message !== "") {
                 this.$router.push("/users/login");
               } else {
                 this.$router.push("/");
@@ -162,7 +246,6 @@ export default {
         this.$router.push("/");
         if (this.$router.path !== homePath) this.$router.go({ path: homePath });
       }
-
       event.preventDefault();
     },
   },

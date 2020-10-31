@@ -12,7 +12,7 @@ const getters = {
 const actions = {
   fetchUser({ commit }, user) {
     console.log("Logging In");
-
+    console.log(state.user.data)
     commit("SET_LOGGED_IN", user !== null);
 
     if (user) {
