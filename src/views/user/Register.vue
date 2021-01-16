@@ -145,32 +145,6 @@
 <script>
 import firebase from "firebase";
 import { mapActions } from "vuex";
-// import { ValidationProvider, ValidationObserver, extend } from 'vee-validate'
-
-// // create custom error message for custom rule
-// var errorMessage =
-//  " min length 8 chars, and must include 1 lower-case, upper-case, numeral and special character (#!@$%^*-)";
-
-// // create custom rule
-// extend("customPassword", {
-//   message: field => "The " + `${field}` + errorMessage,
-//   validate: value => {
-//     var notTheseChars = /["'?&/<>\s]/;
-//     var mustContainTheseChars = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#!@$%^*-]).{8,}$/;
-//     var containsForbiddenChars = notTheseChars.test(value);
-//     var containsRequiredChars = mustContainTheseChars.test(value);
-//     if (containsRequiredChars && !containsForbiddenChars) {
-//       return true;
-//     } else {
-//         if (containsForbiddenChars) {
-//           errorMessage = ' contains forbidden characters: " ' + " ' ? & / < > or space";
-//         }
-//         else { errorMessage = " min length 8 chars, and must include 1 lower-case, upper-case, numeral and special character ($@$!%*#?&)";
-//         }
-//         return false;
-//       }
-//     }
-// });
 
 export default {
   name: "Register",

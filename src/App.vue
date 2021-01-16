@@ -36,12 +36,14 @@ export default {
       (position) => {
         this.gettingLocation = false;
         this.location = position;
+
         //Update vuex module
         this.updateLocationState({ position });
       },
       (err) => {
         this.gettingLocation = false;
         this.errorStr = err.message;
+        console.log(this.errorStr);
       }
     );
   },

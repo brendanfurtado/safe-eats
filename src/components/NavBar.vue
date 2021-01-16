@@ -2,7 +2,7 @@
   <div class="navbar">
     <v-app-bar flat app height="60" hide-on-scroll>
       <v-toolbar-title class="text-uppercase">
-        <v-btn @click="$router.push('/')">Safe Eats</v-btn>
+        <v-btn @click="$router.push('/')">Safe Eat</v-btn>
         <v-spacer></v-spacer>
       </v-toolbar-title>
 
